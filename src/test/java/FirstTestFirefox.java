@@ -5,7 +5,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.sql.Driver;
 import java.time.Duration;
@@ -14,26 +18,26 @@ import java.util.concurrent.TimeUnit;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleContains;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
-public class FirstTest {
-
+public class FirstTestFirefox {
     private WebDriver driver;
     private WebDriverWait wait;
 
     @Before
     public void start() {
 
-        driver = new ChromeDriver(); //инициализация драйвера (вызов конструктора)
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        //driver = new InternetExplorerDriver();
+        driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //чтобы драйвер дожидался появления элементов на страницк
-        wait = new WebDriverWait(driver, Duration.ofSeconds(4));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     @Test
     public void FirstTest() {
         driver.get("http://www.google.com/");// команда get открытия страницы
-        driver.findElement(By.className("hOoLGe")).click();//клавиатура
-//        driver.findElement(By.id("K32")).click();//пробел на клавиатуре
+        //driver.findElement(By.className("hOoLGe")).click();//клавиатура
         driver.findElement(By.name("q")).sendKeys("webdriver");//окно ввода в google
+        wait.until(ExpectedConditions.elementToBeClickable(By.name("btnK")));
         driver.findElement(By.name("btnK")).click(); // кнопка google search
         wait.until(titleContains("webdriver"));
 
@@ -44,5 +48,6 @@ public class FirstTest {
         driver.quit();//команда quit останавливает драйвер и браузер
         driver = null;
     }
+
 
 }
