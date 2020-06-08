@@ -40,7 +40,7 @@ public class Login {
         wait.until(titleContains("My Store"));
         List<WebElement> listSize = driver.findElements(By.id("app-"));//находим количество li
 
-        for (int i = 0; i < listSize.size(); i++) { //list of shop list
+        for (int i = 0; i < listSize.size(); i++) { //список всех пунктов в меню слева
 
             List<WebElement> list = driver.findElements(By.id("app-"));
             WebElement liElem = list.get(i);
@@ -49,7 +49,7 @@ public class Login {
 
             List<WebElement> insideListSize = driver.findElements(By.xpath("//*[contains(@id, 'doc-')]"));
 
-            for (int j = 0; j <insideListSize.size() ; j++) { // inside each shop object list
+            for (int j = 0; j <insideListSize.size() ; j++) { // вложенные пункты
 
                 List<WebElement> insideList = driver.findElements(By.xpath("//*[contains(@id, 'doc-')]"));
                 WebElement liInside = insideList.get(j);
