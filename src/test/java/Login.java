@@ -38,11 +38,12 @@ public class Login {
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click(); // кнопка
         wait.until(titleContains("My Store"));
+
         List<WebElement> listSize = driver.findElements(By.id("app-"));//находим количество li
 
         for (int i = 0; i < listSize.size(); i++) { //список всех пунктов в меню слева
 
-            List<WebElement> list = driver.findElements(By.id("app-"));
+            List<WebElement> list = driver.findElements(By.id("app-"));//заново находим,тк страница обновляется
             WebElement liElem = list.get(i);
             liElem.click();
 
@@ -51,7 +52,7 @@ public class Login {
 
             for (int j = 0; j <insideListSize.size() ; j++) { // вложенные пункты
 
-                List<WebElement> insideList = driver.findElements(By.xpath("//*[contains(@id, 'doc-')]"));
+                List<WebElement> insideList = driver.findElements(By.xpath("//*[contains(@id, 'doc-')]"));//заново находим,тк страница обновляется
                 WebElement liInside = insideList.get(j);
                 liInside.click();
                 Assert.assertTrue(driver.findElement(By.tagName("h1")).isDisplayed());

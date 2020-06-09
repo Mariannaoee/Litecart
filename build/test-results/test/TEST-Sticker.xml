@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Sticker" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-09T18:58:25" hostname="LAPTOP-JAAEF4LI" time="67.907">
+  <properties/>
+  <testcase name="TestMarianna" classname="Sticker" time="67.907"/>
+  <system-out><![CDATA[mariannna number is : 0
+mariannna number is : 1
+mariannna number is : 2
+mariannna number is : 3
+mariannna number is : 4
+]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 83.0.4103.39 (ccbf011cb2d2b19b506d844400483861342c20cd-refs/branch-heads/4103@{#416}) on port 18754
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Jun 09, 2020 9:58:30 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+]]></system-err>
+</testsuite>
