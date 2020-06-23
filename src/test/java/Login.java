@@ -53,9 +53,9 @@ public class Login {
             for (int j = 0; j <insideListSize.size() ; j++) { // вложенные пункты
 
                 List<WebElement> insideList = driver.findElements(By.xpath("//*[contains(@id, 'doc-')]"));//заново находим,тк страница обновляется
-                WebElement liInside = insideList.get(j);
-                liInside.click();
-                Assert.assertTrue(driver.findElement(By.tagName("h1")).isDisplayed());
+                WebElement liInside = insideList.get(j); //запускаем
+                liInside.click();//нажимаем
+                Assert.assertTrue(driver.findElement(By.tagName("h1")).isDisplayed());//проверяем наличие h1
             }
 
         }
