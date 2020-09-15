@@ -42,7 +42,7 @@ public class Country {
 
 
         List<WebElement> sizeOfCountriesList = driver.findElements(By.className("row"));
-        String previous = "";
+        String previous = " ";
         for (int i = 0; i < sizeOfCountriesList.size(); i++) {
             int newI = i + 2;
             String currentCountry = driver.findElement(
@@ -50,32 +50,10 @@ public class Country {
             System.out.println("the country is : " + currentCountry);
 
 
-
-
         }
     }
 
 
-//    @Test
-//    public void MariannaTest() throws InterruptedException {
-//        List<String> countryList = Arrays.asList("Afghanistan", "Azerbajan", "Algeria");
-//         String previous = "";
-//        boolean isAlphabetical = true;
-//        for (int i = 0; i < countryList.size(); i++) {
-//            String currentCountry = countryList.get(i);
-//
-//            // function that compare two Strings alphabetically if currentCountry is lower than previous then he return -1
-//            // if higher he return 1 if equal return 0
-//            System.out.println(" previous country is : " + previous);
-//            if (currentCountry.compareTo(previous) < 0) {
-//                isAlphabetical = false;
-//            }
-//            previous = currentCountry;
-//            System.out.println(" previous country is : " + previous);
-//
-//        }
-//        Assert.assertTrue(isAlphabetical);
-//    }
 
     @After
     public void stop() {

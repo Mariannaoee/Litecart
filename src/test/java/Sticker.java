@@ -34,10 +34,11 @@ public class Sticker {
         driver.get("http://localhost/litecart/public_html/en/");// команда get открытия страницы
         wait.until(titleContains("My Store"));
 
-        List <WebElement> listDucks = driver.findElements(By.className("product"));//находим количество li
-        for (int i = 0; i < listDucks.size(); i++) { //цикл увеличения на 1
-            WebElement duckElement = listDucks.get(i);//получаем количество уток
-            List<WebElement> stickers = duckElement.findElements(By.className("sticker"));//получаем стикеры и кладем их в переменную
+        List <WebElement> listDucks = driver.findElements(By.className("product"));//список товаров
+        for (int i = 0; i < listDucks.size(); i++) {
+            WebElement duckElement = listDucks.get(i);//получаем количество товаров
+
+            List<WebElement> stickers = duckElement.findElements(By.className("sticker"));//список стикеров
             Assert.assertTrue(stickers.size() == 1);//проверяем что стикер только один для каждой одной утки
 
         }
