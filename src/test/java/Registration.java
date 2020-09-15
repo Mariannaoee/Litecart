@@ -16,8 +16,7 @@ import java.time.Duration;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertTrue;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+
 
 
 public class Registration {
@@ -44,6 +43,7 @@ public class Registration {
         // new customer registration
 //        WebDriverWait wait = new WebDriverWait(driver,70);
 //        wait.until(ExpectedConditions.elementToBeClickable(By.name("firstname")));
+        Thread.sleep(1000);
         driver.findElement(By.name("firstname")).sendKeys("Mariannaoe");
         driver.findElement(By.name("lastname")).sendKeys("Estrinaoe");
         driver.findElement(By.name("address1")).sendKeys("Azanoe");
