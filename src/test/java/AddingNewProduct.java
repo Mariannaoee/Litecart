@@ -1,15 +1,15 @@
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -35,19 +35,14 @@ public class AddingNewProduct {
         driver.findElement(By.name("username")).sendKeys("admin"); //окно ввода
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click(); // кнопка
-    }
 
-    @Test
-        public void initNewProductTest() throws InterruptedException {
         wait.until(titleContains("My Store"));
         driver.findElement(By.linkText("Catalog")).click();
         wait.until(titleContains("Catalog"));
         driver.findElement(By.linkText("Add New Product")).click();
-    }
-    @Test
-        public void fillGeneralPage() throws InterruptedException {
+
         wait.until(titleContains("Add New Product"));
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         List<WebElement> selectStatus = driver.findElements(By.cssSelector("input[name='status']"));
         // Create a boolean variable which will hold the value (True/False)
         boolean bValue = true;
@@ -78,26 +73,21 @@ public class AddingNewProduct {
         chooseFile.sendKeys(absolutePath);
 
         WebElement element = driver.findElement(By.name("date_valid_from"));
-        Dimension size = element.getSize();
-        WebElement body = driver.findElement(By.id("body"));
-        System.out.println(element.getSize());
-        new Actions(driver).moveToElement(element).moveByOffset(75, 0 )
-                .click().perform();
+        // Create object of SimpleDateFormat class and decide the format
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        //get current date time with Date()
+        Date date = new Date();
+        // Now format the date
+        String date1= dateFormat.format(date);
+        element.sendKeys(date1);
+        WebElement element2 = driver.findElement(By.name("date_valid_to"));
+        element2.sendKeys("12312020");
 
 
-//        setDatepicker(driver, "#datepicker", "02/20/2020");
-//    }
-//        public void setDatepicker(WebDriver driver, String cssSelector, String date) {
-//        new WebDriverWait(driver, 50).until(
-//                (WebDriver d) -> d.findElement(By.cssSelector(cssSelector)).isDisplayed());
-//        JavascriptExecutor.class.cast(driver).executeScript(
-//                String.format("$('%s').datepicker('setDate', '%s')", cssSelector, date));
-//    }
-
+    }
 
 
 }
-
 
 
 
