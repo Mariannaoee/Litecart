@@ -1,8 +1,10 @@
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -33,12 +35,17 @@ public class AddingNewProduct {
         driver.findElement(By.name("username")).sendKeys("admin"); //окно ввода
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click(); // кнопка
+    }
+
+    @Test
+        public void initNewProductTest() throws InterruptedException {
         wait.until(titleContains("My Store"));
         driver.findElement(By.linkText("Catalog")).click();
         wait.until(titleContains("Catalog"));
         driver.findElement(By.linkText("Add New Product")).click();
-
-        //General page
+    }
+    @Test
+        public void fillGeneralPage() throws InterruptedException {
         wait.until(titleContains("Add New Product"));
         Thread.sleep(1000);
         List<WebElement> selectStatus = driver.findElements(By.cssSelector("input[name='status']"));
@@ -74,19 +81,18 @@ public class AddingNewProduct {
         Dimension size = element.getSize();
         WebElement body = driver.findElement(By.id("body"));
         System.out.println(element.getSize());
-        new Actions(driver).moveToElement(element).moveByOffset(size.width, size.height / 2)
+        new Actions(driver).moveToElement(element).moveByOffset(75, 0 )
                 .click().perform();
 
-//        driver.switchTo().frame(
-//                driver.findElement(By.cssSelector("iframe.demo-frame")));
-        setDatepicker(driver, "#datepicker", "02/20/2020");
-    }
-        public void setDatepicker(WebDriver driver, String cssSelector, String date) {
-        new WebDriverWait(driver, 30000).until(
-                (WebDriver d) -> d.findElement(By.cssSelector(cssSelector)).isDisplayed());
-        JavascriptExecutor.class.cast(driver).executeScript(
-                String.format("$('%s').datepicker('setDate', '%s')", cssSelector, date));
-    }
+
+//        setDatepicker(driver, "#datepicker", "02/20/2020");
+//    }
+//        public void setDatepicker(WebDriver driver, String cssSelector, String date) {
+//        new WebDriverWait(driver, 50).until(
+//                (WebDriver d) -> d.findElement(By.cssSelector(cssSelector)).isDisplayed());
+//        JavascriptExecutor.class.cast(driver).executeScript(
+//                String.format("$('%s').datepicker('setDate', '%s')", cssSelector, date));
+//    }
 
 
 
