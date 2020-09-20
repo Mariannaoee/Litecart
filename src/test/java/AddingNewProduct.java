@@ -25,12 +25,19 @@ public class AddingNewProduct {
     @Before
     public void start() {
         driver = new ChromeDriver(); //инициализация драйвера (вызов конструктора)
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(4));
+        driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     @Test
     public void Login() throws InterruptedException {
+        loginSite();
+        initGeneralPage();
+        initInformationPage();
+        initPricePage();
+    }
+
+    private void loginSite() throws InterruptedException {
         driver.get("http://localhost/litecart/public_html/admin/");
         driver.findElement(By.name("username")).sendKeys("admin"); //окно ввода
         driver.findElement(By.name("password")).sendKeys("admin");
@@ -40,7 +47,10 @@ public class AddingNewProduct {
         driver.findElement(By.linkText("Catalog")).click();
         wait.until(titleContains("Catalog"));
         driver.findElement(By.linkText("Add New Product")).click();
+    }
 
+    public void initGeneralPage() throws InterruptedException {
+        //General Page
         wait.until(titleContains("Add New Product"));
         Thread.sleep(2000);
         List<WebElement> selectStatus = driver.findElements(By.cssSelector("input[name='status']"));
@@ -78,12 +88,45 @@ public class AddingNewProduct {
         //get current date time with Date()
         Date date = new Date();
         // Now format the date
-        String date1= dateFormat.format(date);
+        String date1 = dateFormat.format(date);
         element.sendKeys(date1);
         WebElement element2 = driver.findElement(By.name("date_valid_to"));
         element2.sendKeys("12312020");
+    }
+
+    //Information page
+    public void initInformationPage() throws InterruptedException {
+        driver.findElement(By.linkText("Information")).click();
+        Thread.sleep(1000);
+        Select manufacturer = new Select(driver.findElement(By.name("manufacturer_id")));
+        manufacturer.selectByVisibleText("ACME Corp.");
+        Select supplier = new Select(driver.findElement(By.name("supplier_id")));
+        supplier.selectByVisibleText("-- Select --");
+
+        sendNameAndKeys("keywords", "I love ducks");
+        sendNameAndKeys("short_description[en]", "I want to buy a duck");
+        sendNameAndKeys("description[en]", "Hello world!!!");
+        sendNameAndKeys("head_title[en]", "Duck world!!!");
+        sendNameAndKeys("meta_description[en]", "Lovely world!!!");
+    }
+
+    //Prices page
+    public void initPricePage() throws InterruptedException {
+
+        driver.findElement(By.linkText("Prices")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.name("purchase_price")).sendKeys("1");
+        Select price = new Select(driver.findElement(By.name("purchase_price_currency_code")));
+        price.selectByVisibleText("US Dollars");
+        sendNameAndKeys("prices[USD]", "55");
+        sendNameAndKeys("prices[EUR]", "50");
+        driver.findElement(By.name("save")).submit();
 
 
+    }
+
+    private void sendNameAndKeys(String name, String keys) {
+        driver.findElement(By.name(name)).sendKeys(keys);
     }
 
 
