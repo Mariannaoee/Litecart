@@ -30,11 +30,12 @@ public class AddingNewProduct {
     }
 
     @Test
-    public void Login() throws InterruptedException {
+    public void AddNewProduct() throws InterruptedException {
         loginSite();
         initGeneralPage();
-        initInformationPage();
-        initPricePage();
+        initInformationPage("I love Ducks");
+        initPricePage("45","55");
+        checkProduct();
     }
 
     private void loginSite() throws InterruptedException {
@@ -42,15 +43,13 @@ public class AddingNewProduct {
         driver.findElement(By.name("username")).sendKeys("admin"); //окно ввода
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click(); // кнопка
-
         wait.until(titleContains("My Store"));
         driver.findElement(By.linkText("Catalog")).click();
         wait.until(titleContains("Catalog"));
         driver.findElement(By.linkText("Add New Product")).click();
     }
-
-    public void initGeneralPage() throws InterruptedException {
         //General Page
+    public void initGeneralPage() throws InterruptedException {
         wait.until(titleContains("Add New Product"));
         Thread.sleep(2000);
         List<WebElement> selectStatus = driver.findElements(By.cssSelector("input[name='status']"));
@@ -95,7 +94,7 @@ public class AddingNewProduct {
     }
 
     //Information page
-    public void initInformationPage() throws InterruptedException {
+    public void initInformationPage(String keyWordsEnglish) throws InterruptedException {
         driver.findElement(By.linkText("Information")).click();
         Thread.sleep(1000);
         Select manufacturer = new Select(driver.findElement(By.name("manufacturer_id")));
@@ -103,27 +102,34 @@ public class AddingNewProduct {
         Select supplier = new Select(driver.findElement(By.name("supplier_id")));
         supplier.selectByVisibleText("-- Select --");
 
-        sendNameAndKeys("keywords", "I love ducks");
+        sendNameAndKeys("keywords", keyWordsEnglish);
         sendNameAndKeys("short_description[en]", "I want to buy a duck");
         sendNameAndKeys("description[en]", "Hello world!!!");
         sendNameAndKeys("head_title[en]", "Duck world!!!");
         sendNameAndKeys("meta_description[en]", "Lovely world!!!");
     }
 
+
     //Prices page
-    public void initPricePage() throws InterruptedException {
+    public void initPricePage(String priceInputUSD,String priceInputEURO) throws InterruptedException {
 
         driver.findElement(By.linkText("Prices")).click();
         Thread.sleep(1000);
         driver.findElement(By.name("purchase_price")).sendKeys("1");
         Select price = new Select(driver.findElement(By.name("purchase_price_currency_code")));
         price.selectByVisibleText("US Dollars");
-        sendNameAndKeys("prices[USD]", "55");
-        sendNameAndKeys("prices[EUR]", "50");
-        driver.findElement(By.name("save")).submit();
+        sendNameAndKeys("prices[USD]", priceInputUSD);
+        sendNameAndKeys("prices[EUR]", priceInputEURO);
+        driver.findElement(By.name("save")).click();
+    }
 
+    public void checkProduct(){
+        driver.findElement(By.linkText("Catalog")).click();
+        wait.until(titleContains("Catalog"));
+        driver.findElement(By.linkText("Marianna Duck")).isDisplayed();
 
     }
+
 
     private void sendNameAndKeys(String name, String keys) {
         driver.findElement(By.name(name)).sendKeys(keys);
