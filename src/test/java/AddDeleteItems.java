@@ -76,8 +76,7 @@ public class AddDeleteItems {
 
     public void basket() throws InterruptedException {
         for (int i = 0; i < 3; i++) {
-            int id = i + 1;
-            wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.className("quantity")), ""+(id)));
+            wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.className("quantity")), ""+(i+1)));
        }
         }
     }
