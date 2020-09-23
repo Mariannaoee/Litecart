@@ -21,6 +21,7 @@ import org.openqa.selenium.NoSuchElementException;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class AddDeleteItems {
@@ -39,15 +40,8 @@ public class AddDeleteItems {
         login();
         selectItem();
         isSizePresent();
-        basket();
-        login();
-        selectItem();
-        isSizePresent();
-        basket();
-        login();
-        selectItem();
-        isSizePresent();
-        basket();
+        basketIsUpdated();
+        checkout();
     }
 
     public void login() throws InterruptedException {
@@ -74,12 +68,26 @@ public class AddDeleteItems {
         }
     }
 
-    public void basket() throws InterruptedException {
+    public void basketIsUpdated() throws InterruptedException {
         for (int i = 0; i < 3; i++) {
-            wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.className("quantity")), ""+(i+1)));
-       }
+            login();
+            selectItem();
+            isSizePresent();
+            wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.className("quantity")),
+                    "" + (i + 1)));
+        }
+    }
+
+    public void checkout() {
+        driver.findElement(By.linkText("Checkout »")).click();
+        for (int i = 0; i < 3; i++) {
+            driver.findElement(By.name("remove_cart_item")).click();
+            WebElement element = driver.findElement(By.className("quantity"));
+            wait.until(ExpectedConditions.stalenessOf(element));
         }
     }
 
 
-//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='quantity' and text()='1']")));
+}
+
+
